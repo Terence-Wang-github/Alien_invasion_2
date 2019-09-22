@@ -74,6 +74,7 @@ def update_screen(ai_settings, screen, ship, bullets, aliens, stats,
     aliens.draw(screen)
 
     #显示得分
+    sb.prep_score()
     sb.show_score()
 
     #如果游戏处于非活动状态，就绘制play按钮
