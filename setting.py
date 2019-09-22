@@ -18,7 +18,7 @@ class Setting():
         self.bullets_allowed = 3
 
         #外星人设置
-        self.drop_speed_factor = 10
+        self.drop_speed_factor = 100
 
         #以什么样的速度加快游戏节奏
         self.speedup_scale = 1.1

@@ -108,12 +108,20 @@ def check_bullets_aliens_collisions(ai_settings, screen, aliens, ship, bullets,
         for aliens in collisions.values():
             stats.score += ai_settings.alien_point * len(aliens)
             sb.prep_score()
+        check_high_score(stats,sb)
 
     #如果外星人全部消失，删除现有子弹，并新建一群外星人
     if len(aliens) == 0:
         bullets.empty()
         ai_settings.increase_speed()
         creat_fleet(ai_settings, screen, aliens, ship)
+
+
+def check_high_score(stats, sb):
+    """ 检查是否产生了最高分 """
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
 
 
 def fire_bullets(ai_settings, screen, ship, bullets):
