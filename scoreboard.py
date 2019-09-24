@@ -17,13 +17,14 @@ class Scoreboard():
         #准备渲染包含最高得分和当前得分的图像
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
 
     def prep_score(self):
         """ 准备渲染图像,并将得分显示在右上角 """
         # score_str = str(self.stats.score)
         #将得分圆整为最近的10的倍数
         rounded_score = round(self.stats.score, -1)
-        score_str = "{:,}".format(rounded_score)
+        score_str = "Score: "+"{:,}".format(rounded_score)
         self.score_image = self.font.render(score_str, True, self.text_color,
             self.ai_settings.bg_color)
         self.score_rect = self.score_image.get_rect()
@@ -35,16 +36,28 @@ class Scoreboard():
     def prep_high_score(self):
         """ 准备渲染最高得分，并将其显示在屏幕中间 """
         high_score = round(self.stats.high_score, -1)
-        high_score_str = "{:,}".format(high_score)
-        self.high_score_image = self.font.render(high_score_str, True, self.text_color,
-            self.ai_settings.bg_color)
+        high_score_str = "High Score: "+"{:,}".format(high_score)
+        self.high_score_image = self.font.render(high_score_str, True,
+            self.text_color, self.ai_settings.bg_color)
         
         #显示得分放到上面中间
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.centerx
         self.high_score_rect.top = self.score_rect.top
 
+    def prep_level(self):
+        """ 准备渲染游戏等级的的图像，并将其放在的得分下方 """
+        level_str = "Level: "+ str(self.stats.level)
+        self.level_image =self.font.render(level_str, True,
+            self.text_color, self.ai_settings.bg_color)
+
+        #将等级放在的得分下方
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom
+
     def show_score(self):
         """ 在屏幕上显示得分和当前的最高得分 """
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
