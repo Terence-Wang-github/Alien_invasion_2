@@ -12,13 +12,13 @@ class Setting():
         self.ship_limit = 3
 
         #子弹设置
-        self.bullet_width = 300
+        self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
         self.bullets_allowed = 3
 
         #外星人设置
-        self.drop_speed_factor = 10
+        self.drop_speed_factor = 100
 
         #以什么样的速度加快游戏节奏
         self.speedup_scale = 1.1
