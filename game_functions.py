@@ -5,7 +5,7 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 
-def check_keydown_events(event, ai_settings, screen, ship, bullets):
+def check_keydown_events(event, ai_settings, screen, ship, bullets, stats):
     """ 响应按键 """
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
@@ -14,6 +14,10 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_SPACE:
         fire_bullets(ai_settings, screen, ship, bullets)
     elif event.key == pygame.K_q:
+        filename = 'high_score_digits.txt'
+        with open(filename,'w') as file_object:
+            high_score_str = str(stats.high_score)
+            file_object.write(high_score_str)
         sys.exit()
 
 def check_keyup_events(event, ship):
@@ -56,9 +60,14 @@ def check_events(ai_settings, screen, stats, ship, play_button, aliens,
     #响应键盘和鼠标事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            filename = 'high_score_digits.txt'
+            with open(filename,'w') as file_object:
+                high_score_str = str(stats.high_score)
+                file_object.write(high_score_str)
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ai_settings, screen, ship, bullets)
+            check_keydown_events(event, ai_settings, screen, ship, bullets,
+                stats)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -102,7 +111,7 @@ def update_bullets(ai_settings, screen, aliens, ship, bullets, stats, sb):
         # print(len(bullets))
 
     check_bullets_aliens_collisions(ai_settings, screen, aliens, ship, bullets
-        ,stats, sb)
+        , stats, sb)
 
 def check_bullets_aliens_collisions(ai_settings, screen, aliens, ship, bullets,
         stats, sb):
